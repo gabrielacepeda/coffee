@@ -1,7 +1,7 @@
 # Coffee-Oauth app
 This coffee app uses local authentication and node JS middleware.
 
-![coffee previw](https://github.com/gabrielacepeda/coffee-auth/blob/master/coffee.png)
+![coffee preview](https://github.com/gabrielacepeda/coffee-auth/blob/master/coffee.png)
 
 ## How It's Made:
 
