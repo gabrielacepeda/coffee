@@ -30,4 +30,4 @@ It was great learning about user authentication and the middleware that is used 
 ## Credit
 
 Modified from Scotch.io's auth tutorial
-# coffee
+## coffee
