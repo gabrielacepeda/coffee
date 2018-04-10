@@ -7,6 +7,7 @@ module.exports = function (app, passport, db) {
 		res.render('index.ejs');
 	});
 
+
 	// PROFILE SECTION =========================
 	app.get('/profile', isLoggedIn, function (req, res) {
 		db.collection('messages').find().toArray((err, result) => {
@@ -18,12 +19,24 @@ module.exports = function (app, passport, db) {
 		})
 	});
 
+
 	// LOGOUT ==============================
 	app.get('/logout', function (req, res) {
 		req.logout();
 		res.redirect('/');
 	});
 
+
+// react routes ============================
+
+// MAIN TEST ROUTE ===
+
+app.get('/api/messages', isLoggedIn, function (req, res) {
+	db.collection('messages').find().toArray((err, result) => {
+		if (err) return console.log(err)
+		res.json(result)
+	})
+});
 	// message board routes ===============================================================
 
 	app.post('/messages', (req, res) => {
@@ -42,11 +55,11 @@ module.exports = function (app, passport, db) {
 	app.put('/messages', (req, res) => {
 		db.collection('messages')
 			.findOneAndUpdate({
-				name: req.body.name,
+				name: user.local.email,
 				msg: req.body.msg
 			}, {
 				$set: {
-					thumbUp: req.body.name + " complete!"
+					thumbUp: user.local.email + " complete!"
 				}
 			}, {
 				sort: {
@@ -81,6 +94,14 @@ module.exports = function (app, passport, db) {
 			message: req.flash('loginMessage')
 		});
 	});
+
+// MAIN TEST ROUTE
+	app.get('/api/messages', function(req, res) {
+	    db.collection('messages').find().toArray((err, result) => {
+	      if (err) return console.log(err)
+	      res.json(result)
+	    })
+	  });
 
 	// process the login form
 	app.post('/login', passport.authenticate('local-login', {
